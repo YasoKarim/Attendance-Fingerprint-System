@@ -1,0 +1,97 @@
+''
+def attend(request):
+    attendance_data = conn.get_attendance()
+    print(conn.get_attendance())
+    print(conn.connect())
+
+    attendance_model = User()
+    attendance_data_with_uid = {}
+
+    for user_id, attendance_status in attendance_data.items():
+        attendance_data_with_uid[user_id] = {
+            "uid": user_id,
+            "attendance_status": attendance_status
+        }
+# Loop through the attendance data and insert it into the database.
+    attendance_model = User()
+
+# Loop through the attendance data and insert it into the database.
+    for attendance_data_item in attendance_data_with_uid.values():
+        attendance_model = User(**attendance_data_item)
+        attendance_model.save()
+
+
+def attendance(request):
+# Get all the attendance records.
+    attendance_records = Attendance.objects.all()
+
+# Iterate over the attendance records and insert each record for the corresponding user.
+    for attendance_record in attendance_records:
+        user = User.objects.get(Q(id=attendance_record.user_id))
+        attendance_record.user = user
+        attendance_record.save()
+
+"""  #dev =  pyzkaccess.ZKDevice()
+    conn = pyzkaccess.ZKDevice('172.19.16.5','admin','123456')
+    #conn.connect()
+
+    print(conn.users())
+    print(conn.connect())
+    conn.close()
+ 
+     # Connect to the device
+    device = pyzkaccess.connect("172.19.16.5")
+    print(device)
+    # Read user data from the device's database table
+    user_data = device.table("User")
+
+    # Print the user data
+    print(user_data)
+    # Create your views here. 
+
+# Do something with the device.
+# For example, you could get the list of users on the device.
+    #users = conn.users()
+
+# Print the list of users.
+    ##for user in users:
+#  print(user)
+
+# Close the connection to the device.
+    """
+
+''' employee_id = models.IntegerField()
+    date = models.DateField()
+    time = models.TimeField()
+    attendance_status = models.CharField(max_length=255)
+
+    def __str__(self):
+        return f"Attendance for {self.employee_id} on {self.date} at {self.time}"
+
+    
+    for user in users:
+        userObj = User.objects.create(
+            uid=user.uid,
+            name=user.name,
+            date = user.date,
+            time = user.time,
+            type = user.type
+        )
+    
+    for record in attend:
+        attendance_rec = User.objects.create(
+        name = record.name,
+        timestamp = record.timestamp,
+        #user_id = record.user_id,
+        status = record.status)
+
+    #attendance_record = User.,(timestamp =timestamp,user_id=user_id,status=status)
+    attendance_rec.save()    
+# Close the connection to the device.
+    conn.disconnect()
+    context = {'con':c,'users':users,
+        'attend':attend
+    }
+return render(request, 'zkteco/zkteco.html',context)
+
+        '''

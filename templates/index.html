@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content%}
+<h1>test</h1>
+
+{% if name == 'yasmine' %}
+<p>welcome </p>
+{% endif %}
+
+
+<img src={%static 'image/django.png' %} alt="">
+name = {{name | capfirst}}
+<h1> age = {{age | filesizeformat}} </h1>
+
+{% endblock content%}
